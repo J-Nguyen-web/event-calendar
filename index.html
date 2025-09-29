@@ -7,19 +7,37 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <header>
-        <h1>Event Calendar</h1>
-        <select id="gameFilter">
-            <option value="all">All Games</option>
-            <option value="Genshin Impact">Genshin Impact</option>
-            <option value="Honkai Star Rail">Honkai Star Rail</option>
-            <option value="Zenless Zone Zero">Zenless Zone Zero</option>
-        </select>
-    </header>
 
-    <main>
-        <div id="eventContainer"></div>
-    </main>
+        <h1>Event Calendar</h1>
+        
+        <div id="calendar"></div>
+
+        <h2>New event</h2>
+        <form id="eventForm">
+            <label for="eventForm">
+                Title: <input type="text" id="title" required />
+            </label>
+            <br>
+            <label>
+                Game:
+                    <select id="game">
+                        <option value="all">All Games</option>
+                        <option value="Genshin Impact">Genshin Impact</option>
+                        <option value="Honkai Star Rail">Honkai Star Rail</option>
+                        <option value="Zenless Zone Zero">Zenless Zone Zero</option>
+                    </select>
+            </label>
+            <br>
+            <label>
+                Start Date: <input type="date" id="start" required />
+            </label>
+            <br>
+            <label>
+                End Date:<input type="date" id="end" required />
+            </label>
+            <br>
+            <button type="submit">Cast Event</button>
+        </form>
 
     <footer>
         Made with <span>❤️</span> by <a href="https://github.com/J-Nguyen-web" target="_blank">J-Nguyen-web</a>
