@@ -44,9 +44,13 @@ function renderCalendar() {
         grid.appendChild(cell);
     });
     
-    for (let i = 0; i < firstDay.getDay(); i++) {
-        // creating empty cell before first day
-        grid.appendChild(document.createElement('div'))
+    let offset = (firstDay.getDay() + 6) % 7; // the first day is always Sunday by using .getDay() method thats why we +6 % 7
+    for (let i = 0; i < offset; i++) {
+        // creating empty cell before first day (which is always Sunday, bcoz .getDay() is JS method that takes info from the date
+        //  but always order sun-mon not mon-sun)
+        const emptyCell = document.createElement('div')
+        emptyCell.textContent = '' 
+        grid.appendChild(emptyCell)
     }
 
     // Day of month
@@ -91,7 +95,7 @@ document.getElementById('eventForm').addEventListener('submit', (el) => {
     const end = document.getElementById('end').value
 
     events.push({ title, game, start, end});
-
+    saveEvents();
     renderCalendar();
 
     el.target.reset();
