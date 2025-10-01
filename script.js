@@ -1,17 +1,28 @@
-let event = [] // will be loaded from event.json & user input
+
+
+let events = JSON.parse(localStorage.getItem('events')) ; // will be loaded from event.json & user input
+saveEvents();
+renderCalendar();
+loadEvents();
 
 // loading initial events from JSON
 async function loadEvents() {
-    const response = await fetch("events.json");
-    const data = await response.json();
-    events = data;
+    try {
+        const response = await fetch("events.json");
+        if(!response.ok) throw new Error('No events.json');
+        const data = await response.json();
+        events = data;
+        saveEvents();
+    } catch (error) {
+        console.warn('Skiping external events.json', error.message)
+    }    
     renderCalendar();
 }
 
 // saving events in localStorage
 
 function saveEvents() {
-    localStorage.setItem('events', JSON.stringify(events))
+    localStorage.setItem("events", JSON.stringify(events))
 }
 
 // render the calendar
@@ -37,7 +48,7 @@ function renderCalendar() {
     grid.style.gridTemplateColumns = "repeat(7, 1fr)";
     grid.style.gap = "5px";
 
-    const weekDays = ["Mon", "Tue", "Wed", "Tue", "Fri", "Sat", "Sun"];
+    const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     weekDays.forEach(day => {
         const cell = document.createElement("div");
         cell.textContent = day;
@@ -48,13 +59,11 @@ function renderCalendar() {
     for (let i = 0; i < offset; i++) {
         // creating empty cell before first day (which is always Sunday, bcoz .getDay() is JS method that takes info from the date
         //  but always order sun-mon not mon-sun)
-        const emptyCell = document.createElement('div')
-        emptyCell.textContent = '' 
-        grid.appendChild(emptyCell)
+        grid.appendChild(document.createElement('div'))
     }
 
     // Day of month
-    for (let day = 1;day <= lastDay.getDate(); day++) {
+    for (let day = 1; day <= lastDay.getDate(); day++) {
         const date = new Date (year, month, day);
         const cell = document.createElement('div');
         cell.style.border = "1px solid #ccc";
@@ -70,7 +79,8 @@ function renderCalendar() {
             const start = new Date(event.start)
             const end = new Date(event.end)
             if(date >= start&& date <= end) {
-                badge.textConten = event.title;
+                const badge = document.createElement('div')
+                badge.textContent = event.title;
                 badge.style.fontSize = "0.7em"
                 badge.style.background = "#eee"
                 badge.style.marginTop = "2px"
@@ -97,8 +107,6 @@ document.getElementById('eventForm').addEventListener('submit', (el) => {
     events.push({ title, game, start, end});
     saveEvents();
     renderCalendar();
-
     el.target.reset();
 });
 
-loadEvents();
