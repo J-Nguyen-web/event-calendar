@@ -1,43 +1,42 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Calendar</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+    <header>
         <h1>Event Calendar</h1>
-        
-        <div id="calendar"></div>
+        <div>
+            <button class="btn primary" id="newEventBtn">New Event</button>
+        </div>
+    </header>
 
-        <h2>New event</h2>
-        <form id="eventForm">
-            <label>
-                Title: <input type="text" id="title" required />
-            </label>
-            <br>
-            <label>
-                Game:
-                    <select id="game">
-                        <option value="all">All Games</option>
-                        <option value="Genshin Impact">Genshin Impact</option>
-                        <option value="Honkai Star Rail">Honkai Star Rail</option>
-                        <option value="Zenless Zone Zero">Zenless Zone Zero</option>
-                    </select>
-            </label>
-            <br>
-            <label>
-                Start Date: <input type="date" id="start" required />
-            </label>
-            <br>
-            <label>
-                End Date:<input type="date" id="end" required />
-            </label>
-            <br>
-            <button type="submit">Cast Event</button>
-        </form>
+        <div class="timeline-wrapper" id="timelinewrapper">
+            <!-- generated months will be here -->
+        </div>
+
+        <!-- Modal -->
+         <div id="modal">
+            <div class="modal-box">
+                <h3>New Event</h3>
+                <label>Title</label>
+                <input id="eventTitle" type="text">
+                <label>Start Date</label>
+                <input id="eventStart" type="date">
+                <label>End Date</label>
+                <input id="eventEnd" type="date">
+                <label>Color</label>
+                <input id="eventColor" type="color" value="#2b7cff">
+                <div class="modal-actions">
+                    <button class="btn primary" id="saveEvent">Save</button>
+                    <button class="btn ordinary" id="dismissEvent">Dismiss</button>
+                </div>
+            </div>
+         </div>
 
     <footer>
         Made with <span>❤️</span> by <a href="https://github.com/J-Nguyen-web" target="_blank">J-Nguyen-web</a>
