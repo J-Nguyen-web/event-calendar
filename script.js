@@ -14,5 +14,46 @@ function buildCalendar() {
 
         let row = document.createElement('div');
         row.className = 'month-row';
+    
+    
+    // header with delete button
+    let header = document.createElement('div');
+    header.className = 'month-header';
+
+    let title = document.createElement('div');
+    title.className = 'month-title';
+    title.textContent = `${date.toLocaleString('default', {month:'long'})} ${year}`;
+
+    let delBtn = document.createElement('button');
+    delBtn.className = 'month-delete';
+    delBtn.textContent = 'Delete Month';
+    delBtn.onclick = () => {
+        deleteMonth(year,month);
+    };
+
+    header.appendChild(title);
+    header.appendChild(delBtn);
+    row.appendChild(header);
+
+    let days = document.createElement('div');
+    days.className = 'days';
+    let eventsLayer = document.createElement('div');
+    eventsLayer.className = 'events';
+
+    let temp = new Date(year, month+1,0); // last day of this month
+    for(let i=1; i <= temp.getDate(); i++) {
+        const el = document.createElement('div');
+         el.className = 'day';
+         el.textContent = i;
+         days.appendChild(el);0
+    }
+
+    row.appendChild(days);
+    row.appendChild(eventsLayer);
+    wrapper.appendChild(row);
+
+    renderEventsFOrMonth(year, month, eventsLayer);
+
+    date = new Date (year, month +1, 1);
     }
 }
