@@ -52,8 +52,30 @@ function buildCalendar() {
     row.appendChild(eventsLayer);
     wrapper.appendChild(row);
 
-    renderEventsFOrMonth(year, month, eventsLayer);
+    renderEventsForMonth(year, month, eventsLayer);
 
     date = new Date (year, month +1, 1);
     }
+}
+
+function renderEventsForMonth(year, month, eventsLayer) {
+    eventsLayer.innerHTML = '';
+    let trackY = 0;
+    events.forEach((ev,index) => {
+        let start = new Date(ev.start);
+        let end = new Date(ev.end || ev.start);
+        if(start.getFullYear() === year && start.getMonth() === month){
+            let offset = start.getDate() - 1;
+            let span = (end-start)/(1000*3600*24) + 1;
+
+                let div = document.createElement('div');
+                div.className = 'event';
+                div.style.background = ev.color;
+                div.style.left = (offset*daywidth + 4) + 'px';
+                div.style.width = (span*dayWidth - 8) + 'px';
+                div.style.top = (trackY%3*50) + 'px';
+        }
+
+
+    })
 }
