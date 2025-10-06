@@ -74,8 +74,25 @@ function renderEventsForMonth(year, month, eventsLayer) {
                 div.style.left = (offset*daywidth + 4) + 'px';
                 div.style.width = (span*dayWidth - 8) + 'px';
                 div.style.top = (trackY%3*50) + 'px';
+
+                // event text
+                let label = document.createElement('span');
+                label.textContent = ev.title;
+
+                // delete button
+                let btn = document.createElement('button');
+                btn.textContent = 'X';
+                btn.onclick = () => {
+                    events.splice(index,1);
+                    SVGAElement();
+                    buildCalendar();
+                };
+
+                div.appendChild(label);
+                div.appendChild(btn);
+                eventsLayer.appendChild(div);
+                
+                trackY++;                
         }
-
-
-    })
+    });
 }
