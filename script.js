@@ -96,3 +96,22 @@ function renderEventsForMonth(year, month, eventsLayer) {
         }
     });
 }
+
+// delete month and events in it
+
+function deleteMonth(year, month) {
+    events = events.filter(eve => {
+        let start = new Date(ev.start);
+
+        return !(start.getFullYear() === year && start.getMonth() === month );
+    });
+    save();
+    if(startDate.getFullYear() === year && start.getMonth() === month){
+        startDate = new Date(year, month + 1, 1);
+    }
+    buildCalendar();
+}
+
+function save() {
+    localStorage.setItem('timelineEvents', JSON.stringify(events));
+}
