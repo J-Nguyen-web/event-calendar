@@ -100,7 +100,7 @@ function renderEventsForMonth(year, month, eventsLayer) {
 // delete month and events in it
 
 function deleteMonth(year, month) {
-    events = events.filter(eve => {
+    events = events.filter(ev => {
         let start = new Date(ev.start);
 
         return !(start.getFullYear() === year && start.getMonth() === month );
@@ -114,4 +114,28 @@ function deleteMonth(year, month) {
 
 function save() {
     localStorage.setItem('timelineEvents', JSON.stringify(events));
+}
+
+// modal handling
+const modal = document.getElementById('modal');
+document.getElementById('addEventBtn').onclick = () => modal.style.display = 'flex';
+document.getElementById('dismissEvent').onclick = () => modal.style.display = 'none';
+document.getElementById('saveEvent').onclick = () => {
+    let title = document.getElementById('evTitle').value;
+    let start  = document.getElementById('evStart').value;
+    let end = document.getElementById('evEnd').value;
+    let color = document.getElementById('evColor').value;
+
+    if(!title || !start){
+        alert('Title and begining date are required!');
+        return;
+    }
+    events.push{(
+        title: title,
+        start: start,
+        end: end || start,
+        color: color
+    )}
+    save();
+    modal.style.display = 'none';
 }
