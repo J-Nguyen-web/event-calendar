@@ -138,4 +138,18 @@ document.getElementById('saveEvent').onclick = () => {
     )}
     save();
     modal.style.display = 'none';
-}
+
+    //extend calendar automaticly if new event is outside the current range
+
+    let startDateObject  = new Date(start);
+    let endDateObject  = new Date(end || start);
+
+    if(startDateObject < startDate) {
+        startDate = new Date(startDateObject.getFullYear(), startDateObject.getMonth(), 1)
+    }
+
+    if(endDateObject < endDate) {
+        endDate = new Date(endDateObject.getFullYear(), endDateObject.getMonth(), 1)
+    }
+    buildCalendar();
+};
