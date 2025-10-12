@@ -153,3 +153,25 @@ document.getElementById('saveEvent').onclick = () => {
     }
     buildCalendar();
 };
+
+// export and import
+
+document.getElementById('exportBtn').onclick = () => document.getElementById('fileInput').click()
+document.getElementById('fileInput').onchange = (event) => {
+    let file = event.target.file[0];
+    if(!file) return;
+    let reader =new FileReader();
+    reader.onload = event => {
+        try {
+            events = JSON.parse(event.target.result);
+            save();
+            buildCalendar();
+        } catch (error) {
+            alert("Invalid file")
+        };
+
+        reader.readAsText(file);
+    }
+
+    buildCalendar();
+}
