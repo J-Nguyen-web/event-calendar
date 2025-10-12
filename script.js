@@ -130,12 +130,12 @@ document.getElementById('saveEvent').onclick = () => {
         alert('Title and begining date are required!');
         return;
     }
-    events.push{(
+    events.push({
         title: title,
         start: start,
         end: end || start,
         color: color
-    )}
+    });
     save();
     modal.style.display = 'none';
 
